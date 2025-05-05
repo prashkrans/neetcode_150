@@ -1,0 +1,86 @@
+/** 
+LC#198. NC1DP3. House Robber I
+
+Recurrence relation:
+Given f(n) = 0 and f(n-1) = nums[n-1]; // Thus dp array has size of n+1 not n as f(n) = 0
+f(i) = max(f(i+1), nums[i] + f(i+2))  where i varies from 0 to n-2
+
+
+// Use top down approach diagram then use it to figure out the bottom up formula given above
+// Take cost = [2,9,8,3,6] as an example
+
+Refer LC#746 as well
+
+**/
+
+// Method 1a. Bottom up approach with DP array
+// Running time = O(n) due to 0 to n-2 traversal of nums array
+// Auxiliary space = O(n) due to the dp array
+
+class Solution {
+    public:
+        int rob(vector<int>& nums) {
+            int n = nums.size();
+            vector<int> dp(n+1, -1);
+            dp[n] = 0;
+            dp[n-1] = nums[n-1];
+            for(int i=n-2; i>=0; i--) {
+                dp[i] = max(dp[i+1], nums[i]+dp[i+2]);
+            }
+            return dp[0];
+            // return max(dp[0], dp[1]); 
+            // No need to return max(dp[0], dp[1]) unlike in Min Cost Climbing Stairs
+        }
+    };
+
+// Method 1b. Bottom up approach using two variables n1 and n2 i.e. space optimized
+// Running time = O(n) due to 0 to n-2 traversal of nums array
+// Auxiliary space = O(1) due to the variables n1 and n2
+    
+class Solution {
+public:
+    int rob(vector<int>& nums) {
+        int n = nums.size();
+        int n1 = nums[n-1];
+        int n2 = 0;
+        for(int i=n-2; i>=0; i--) {
+            int temp = max(n1, nums[i] + n2);
+            n2 = n1;
+            n1 = temp;
+        }
+        return n1;
+    }
+};
+   
+/**
+Refer:
+A. House Robber Problem
+
+You must start at the first house (index 0)
+The question is about finding the maximum money you can rob from houses 0 to n-1
+dp[0] directly represents this answer
+
+B. Min Cost Climbing Stairs Problem
+
+You can start from either step 0 OR step 1
+The goal is to reach beyond the last step (index n) with minimum cost
+You need to compare which starting point leads to the minimum overall cost
+
+In the Min Cost Climbing Stairs problem:
+
+dp[i] represents the minimum cost to reach the top when starting from step i
+You're returning min(dp[0], dp[1]) because the problem specifically allows you to start at 
+either index 0 or index 1
+dp[0] = cost of starting at step 0 + minimum cost to reach top from there
+dp[1] = cost of starting at step 1 + minimum cost to reach top from there
+
+# This is fundamentally different from the House Robber problem where:
+
+You must consider all houses from index 0 onward
+dp[0] already includes the decision of whether to rob house 0 or skip it
+
+# In summary:
+
+A. House Robber: You must consider all houses (so dp[0] is the answer)
+B. Min Cost Climbing: You have a choice of starting position (so compare dp[0] and dp[1])
+**/
