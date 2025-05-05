@@ -2,6 +2,11 @@
 
 This repository contains my solutions to the popular [NeetCode 150](https://neetcode.io/practice) problem set implemented in C++. These problems cover essential algorithms and data structures frequently asked in technical interviews.
 
+## Timeline
+
+This project was completed between **April 11, 2025** and **May 2, 2025**.
+
+
 ## About NeetCode 150
 
 NeetCode 150 is a curated list of 150 LeetCode problems categorized by data structure/algorithm and difficulty level. The problems are selected to help build a strong foundation in:
@@ -49,12 +54,16 @@ neetcode_150/
 
 ## How to Use
 
-Each solution file is named after the problem and contains:
-- **Neetcode** problem number and **Leetcode** problem number
-- My solution implementation
-- Time and space complexity analysis
-- Alternative approaches (where applicable)
-- Contains only the Solution class and the relevant function implementation (no driver code or test cases)
+Each solution file is named after the problem and includes:
+- The **NeetCode** and **LeetCode** problem numbers  
+- A step-by-step explanation of the approach  
+- Both my custom solution and the optimal solution (where applicable)  
+- Inline comments on the right side explaining key parts of the code  
+- Time and space complexity analysis  
+- Alternative or multiple approaches (where applicable)  
+- Only the `Solution` class and the relevant function implementation (no driver code or test cases)  
+- All solutions have been tested  
+
 
 ## Resources
 
@@ -67,4 +76,6 @@ This project is licensed under the Apache License 2.0 - see the [LICENSE](LICENS
 
 ---
 
-*Note: This repository is for educational purposes only. Using these solutions directly for interview prep without understanding them will not help one improve his/her problem-solving skills.*
+***Note**: This repository is for educational purposes only. Using these solutions directly for interview prep without understanding them will not help one improve his/her problem-solving skills.*
+
+***Disclaimer**: While every effort has been made to ensure accuracy, a few minor mistakes may still exist in the solutions or explanations. Contributions and corrections are welcome.*
