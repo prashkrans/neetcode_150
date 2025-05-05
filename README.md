@@ -58,8 +58,8 @@ Each solution file is named after the problem and includes:
 - The **NeetCode** and **LeetCode** problem numbers  
 - A step-by-step explanation of the approach  
 - Both my custom solution and the optimal solution (where applicable)  
-- Inline comments on the right side explaining key parts of the code  
-- Time and space complexity analysis  
+- **Inline comments** on the right side explaining key parts of the code  
+- **Time** and **space** complexity analysis  
 - Alternative or multiple approaches (where applicable)  
 - Only the `Solution` class and the relevant function implementation (no driver code or test cases)  
 - All solutions have been tested  
@@ -76,6 +76,6 @@ This project is licensed under the Apache License 2.0 - see the [LICENSE](LICENS
 
 ---
 
-***Note**: This repository is for educational purposes only. Using these solutions directly for interview prep without understanding them will not help one improve his/her problem-solving skills.*
+***Note**: This repository is for educational purposes only. Using these solutions directly for interview prep without understanding them will not help improve one's problem-solving skills.*
 
 ***Disclaimer**: While every effort has been made to ensure accuracy, a few minor mistakes may still exist in the solutions or explanations. Contributions and corrections are welcome.*
