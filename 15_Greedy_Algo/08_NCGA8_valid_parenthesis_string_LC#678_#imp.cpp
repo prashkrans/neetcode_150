@@ -15,20 +15,23 @@ Approaches:
 3. Recursion with memoization
 4. Greedy approach
 
-
 ### Approach 1: Use two stacks to track the indices of left parentheses and '*' characters.
+
+Note - Here, we store indices instead of '(' or ')' or '*'. So, at last when only '(' and '*' remain need
+to check that every '(' is present before a '*'.
+
 1. Initialize two stacks: one for left parentheses and one for '*' characters.
 2. Iterate through the string:
     - If the character is '(', push its index onto the left stack.
     - If the character is '*', push its index onto the star stack.
     - If the character is ')':
-    - If there are unmatched left parentheses, pop from the left stack.
-    - If not, check if there are any '*' characters to match with.
-    - If neither is available, return false.
+        - If there are unmatched left parentheses, pop from the left stack.
+        - If not, check if there are any '*' characters to match with.
+        - If neither is available, return false.
 3. After processing the string, check if there are any unmatched left parentheses.
 4. While there are unmatched left parentheses, check if there are any '*' characters
     that can be used to match them.
-5. If all left parentheses are matched, return true; otherwise, return false.
+5. If all left parentheses present before a corresponding star they are matched, return true; otherwise, return false. [#IMP]
 */
 
 

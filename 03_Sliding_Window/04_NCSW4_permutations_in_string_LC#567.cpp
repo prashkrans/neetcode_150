@@ -1,5 +1,12 @@
 /* LC#567. Permutation in String
 
+Found another method yet to test it tho
+freqMap1
+while r < m
+if(s2[r] is not found in freqMap1) increment l to r and clear freqMap2
+if(s2[r] is found in freqMap1) freqMap2[s[r]]++ then match freqMap1 with freqMap2
+TODO 
+
 /* Approach 1: Brute Force with Sorting
 1. We are given two strings, s1 and s2. We need to determine whether s2 contains a
    permutation of s1.
@@ -16,9 +23,7 @@
    no permutation of s1 is a substring of s2.
 */ 
 
-
-*/
-
+// 1: Brute Force with Sorting (Easier to understand but less efficient)
 // Time Complexity: O(m * n log n + n log n) ~ O(mnlogn), where m = s2.length(), n = s1.length()
 // Space Complexity: O(n), for the substring storage in each iteration
 
@@ -39,7 +44,7 @@ public:
 };
 
 /*
-### Approach 2: Sliding Window with Frequency Maps
+### Approach 2: Sliding Window with Frequency Maps (Prefer this method)
 1. Use two frequency maps:
    - `freqMap1` to store the character frequencies of `s1`.
    - `freqMap2` to store the character frequencies of the current window in `s2`.

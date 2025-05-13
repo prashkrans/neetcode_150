@@ -39,7 +39,7 @@ intermediate strings.
         iii. Push the repeated substring back onto `stringStack`.
    d.   If the character is a lowercase letter, collect all consecutive letters to form
         a string and push it onto `stringStack`.
-3. After processing the entire string, collect all strings from `stringStack` to form
+3. After processing the entire string, collect all strings (one or more) from `stringStack` to form
 the final decoded string.
 4. The algorithm ensures that each character is processed once, resulting in a time
 complexity of O(n), where n is the length of the input string.
@@ -77,10 +77,10 @@ public:
                 int currTimes = numStack.top();         // Get the repeat count from numStack
                 numStack.pop();                         // Remove the repeat count from the stack
                 while(!stringStack.empty() && stringStack.top() != "[") { // Collect the string inside brackets
-                    currString = stringStack.top() + currString; // Append to the current string
+                    currString = stringStack.top() + currString; // [#IMP] Append st.top() to the start of the current string
                     stringStack.pop();                 // Remove the top string from the stack
                 }
-                if(!stringStack.empty()) stringStack.pop(); // Remove the "[" from the stack
+                if(!stringStack.empty()) stringStack.pop(); // [#IMP] Remove the "[" from the stack
                 string res;                             // Initialize the repeated string
                 while(currTimes--) res = res + currString; // Repeat the string currTimes times
                 stringStack.push(res);                  // Push the result back onto the stack

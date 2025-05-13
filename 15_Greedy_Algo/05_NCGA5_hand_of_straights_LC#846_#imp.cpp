@@ -80,3 +80,5 @@ public:
         return true;
     }
 };
+
+// using card + i instead of card + 1 here as i varies from 0 to groupSize

@@ -46,7 +46,7 @@ TODO:
 // Time Complexity: O(n log n), where n is the number of intervals (due to sorting and heap operations)
 // Space Complexity: O(n), for the min-heap used to track meeting end times
 
-class cmp {
+class cmp { // cmp is required here as a custom data structure `Interval` is being used here
 public:
     bool operator() (Interval a, Interval b) const {
         return a.start < b.start;                            // Sort intervals by their start times

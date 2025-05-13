@@ -34,5 +34,5 @@ public:
 
 
 // 2. Binary Search for both rows and cols (TODO)
-// O(log m + log n) where m = no. of rows and n = no. of cols
+// O(log m + log n) = O(log(m*n)) where m = no. of rows and n = no. of cols
 // O(n) due to the vector nums

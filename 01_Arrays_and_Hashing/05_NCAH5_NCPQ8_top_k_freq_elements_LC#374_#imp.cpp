@@ -1,4 +1,5 @@
 /* LC#347. NCAH6. NCPQ8. Top K Frequent Elements
+Prefer min heap over max heap
 
 ### Approach 2: Using a Max Heap (Priority Queue) along with Frequency Counting
 1. Create a frequency map (unordered_map) to count how many times each number appears

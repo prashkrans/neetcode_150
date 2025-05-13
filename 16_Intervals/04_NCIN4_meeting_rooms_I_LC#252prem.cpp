@@ -33,7 +33,7 @@ intervals[i].length == 2
 // Time Complexity: O(n log n), where n is the number of intervals (due to sorting)
 // Space Complexity: O(1), as no additional space is used apart from variables
 
-class cmp {
+class cmp { // cmp is required here as a custom data structure `Interval` is being used here
 public:
     bool operator() (const Interval a, const Interval b) const {
         return a.start < b.start;                            // Sort intervals by their start times

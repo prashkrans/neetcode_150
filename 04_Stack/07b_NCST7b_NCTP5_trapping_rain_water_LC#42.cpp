@@ -1,6 +1,8 @@
 /* LC#42. NCTP5. & NCST8. Trapping Rain Water
 This is an easier variant of the problem LC#84 Largest Rectangle in Histogram
 
+Prefer 1b over 1a and 2
+
 From the image, we can see that to calculate the amount of water trapped at a position, 
 the greater element to the left l and the greater element to the right r of the current position 
 are crucial. 
@@ -28,7 +30,7 @@ I. Approach: Preprocessing Left and Right Maximum Bounds Using Stack
 */
 
 
-// 1. Preprocessing Left and Right Maximum Bounds Using Stack
+// 1a. Preprocessing Left and Right Maximum Bounds Using Stack
 // Time Complexity: O(3n) ~ O(n), where n = number of bars in the height array | 0ms beats 100%
 // Space Complexity: O(n), for storing leftBound, rightBound, and the stack
 
@@ -78,6 +80,44 @@ public:
         return sum;                                                 // return total trapped water
     }
 };
+
+// 1b. Preprocessing Left and Right Maximum Bounds using a max height variable (Prefer this method)
+// Time Complexity: O(3n) ~ O(n), where n = number of bars in the height array | 0ms beats 100%
+// Space Complexity: O(n), for storing leftBound, rightBound
+
+// Time Complexity: O(n)
+// - The first loop calculates the leftMost array in O(n).
+// - The second loop calculates the rightMost array in O(n).
+// - The third loop calculates the trapped water for each bar in O(n).
+// - Overall complexity is O(3n) ≈ O(n), where n is the number of bars in the height array.
+
+// Space Complexity: O(n)
+// - Space is used for the `leftMost` and `rightMost` arrays, each of size n.
+
+class Solution {
+    public:
+        int trap(vector<int>& height) {
+            int areaSum = 0;                                // Initialize the total trapped water
+            int n = height.size();                          // Number of bars in the height array
+            vector<int> leftMost(n, 0);                     // Array to store the maximum height to the left of each bar
+            vector<int> rightMost(n, 0);                    // Array to store the maximum height to the right of each bar
+            int maxHeight = 0;                              // Variable to track the maximum height from the left
+            for(int i=0; i<n; i++) {                        // Calculate leftMost array
+                leftMost[i] = maxHeight;                    // Store the maximum height to the left of the current bar
+                maxHeight = max(maxHeight, height[i]);      // Update the maximum height
+            }
+            maxHeight = 0;                                  // Reset maxHeight to calculate rightMost array
+            for(int i=n-1; i>=0; i--) {                     // Calculate rightMost array
+                rightMost[i] = maxHeight;                   // Store the maximum height to the right of the current bar
+                maxHeight = max(maxHeight, height[i]);      // Update the maximum height
+            }
+            for(int i=0; i<n; i++) {                        // Calculate the trapped water for each bar
+                int currTrap = min(leftMost[i], rightMost[i]) - height[i]; // Water trapped above the current bar
+                areaSum += max(0, currTrap);                // Add the trapped water to the total (ensure non-negative)
+            }
+            return areaSum;                                 // Return the total trapped water
+        }
+    };
     
 
 // 2. Two pointers method with constant space

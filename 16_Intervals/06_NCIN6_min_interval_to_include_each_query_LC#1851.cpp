@@ -54,7 +54,7 @@ public:
         vector<int> ans;                                // Result vector to store answers for each query
         int m = intervals.size(), n = queries.size();   // Number of intervals and queries
         sort(intervals.begin(), intervals.end());       // Sort intervals by their start times
-        map<int, int> queriesMap;                       // Map to store queries and their results
+        map<int, int> queriesMap;                       // Sorts the queries in ascending order and stores queries and their results
         for(int i=0; i<n; i++) queriesMap[queries[i]] = -1; // Initialize all queries with -1
         priority_queue<pair<int, int>, vector<pair<int, int>>, greater<pair<int, int>>> pq; // Min-heap to store intervals
         int j = 0;                                      // Pointer to iterate over intervals

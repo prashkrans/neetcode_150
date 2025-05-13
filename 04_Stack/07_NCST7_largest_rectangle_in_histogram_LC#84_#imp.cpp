@@ -1,7 +1,11 @@
 /* LC#84. Largest Rectangle in Histogram
 Note: LC#85. Maximal Rectangle uses this approach directly as a subroutine.
 
-Approach:
+Remember this example:
+Input: heights = [2,1,5,6,2,3]
+Output: 10
+
+### Approach: Monotonically increasing stack (from left to right and then right to left)
 1. For each bar, determine how far to the left it can extend without encountering a smaller bar:
    - Use a stack to keep track of indices with increasing height.
    - For every bar, pop elements from stack while they are greater than or equal to current height.
@@ -22,7 +26,7 @@ Approach:
 
 */
 
-// 1. Using a stack and doing left pass and right pass to get the leftMost and RightMost boundaries for each bar.
+// 1. Using a monotonically increasing stack and doing left pass and right pass to get the leftMost and RightMost boundaries for each bar.
 // Time Complexity: O(3n) ~  - Each element is pushed and popped at most once from each stack
 // Space Complexity: O(n) - For the stack and result arrays
 

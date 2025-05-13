@@ -1,3 +1,33 @@
+# To find min element satisfying a relation:
+
+### Iterative or Recursive
+E.g. Koko eating bananas
+Given nums and h
+A. (Correct as it works for all the cases)
+```
+int l = 0;
+int r = nums.size() - 1;
+while(l < r) {                      // Note: l < r
+  int mid = l + (r - l) / 2;
+  if(func(mid) <= h) r = mid        // Note: r = mid (not mid - 1)
+  else l = mid + 1;                 // Note: l = mid + 1
+}
+return l; // or return nums[l] 
+```
+
+B. (Incorrect as it works only for a few cases)
+```
+int l = 0;
+int r = nums.size() - 1;
+while(l <= r) {                     // Note: l <= r
+  int mid = l + (r - l) / 2;    
+  if(func(mid) <= h) r = mid - 1;   // Note: r = mid - 1 (not mid, else it gets stuck in an infinite loop)
+  else l = mid + 1;                 // Note: l = mid + 1
+}
+return l; // or return nums[l] 
+
+
+
 
 # Understanding `mid = (l + r) / 2` vs. `mid = l + (r - l) / 2`
 

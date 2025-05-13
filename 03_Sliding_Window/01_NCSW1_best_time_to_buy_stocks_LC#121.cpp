@@ -1,5 +1,9 @@
 /* LC#121. NCSW1 Best Time to Buy and Sell Stock I
 
+Total two ways:
+1. Sliding window
+2. MinVal till index i (with or without a stack)
+
 1. Approach: Sliding Window with Two Pointers
 
 1. We use a sliding window approach with two pointers to find the maximum
@@ -120,5 +124,20 @@ public:
             }
         }
         return maxProfit;                    // Return the maximum profit possible
+    }
+};
+
+// or, same as above but keeping a minVal instead of using a stack (Prefer this method)
+
+class Solution {
+public:
+    int maxProfit(vector<int>& prices) {
+        int maxProfit = 0;
+        int minVal = INT_MAX;
+        for(int i=0; i<prices.size(); i++) {
+            minVal = min(minVal, prices[i]);
+            maxProfit =  max(maxProfit, prices[i] - minVal);
+        }
+        return maxProfit;
     }
 };

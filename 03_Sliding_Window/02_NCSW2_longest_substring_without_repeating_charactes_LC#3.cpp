@@ -16,7 +16,7 @@ Approach: Sliding Window with Hash Map
 11. The sliding window technique efficiently maintains the property that at any point, the characters between l and r form a substring without repeating characters.
 */
 
-// Sliding Window with Hash Map
+// 1. Sliding Window with Hash Map (Prefer this over 2)
 // Time Complexity: O(n) - where n is the length of the string s
 // Space Complexity: O(min(m, n)) - where m is the size of the character set, at most O(n) due to the map mp
 
@@ -36,3 +36,29 @@ public:
         return ans;                                         // Return the length of longest substring without repeats
     }
 };
+
+// 2. Sliding Window with Hash Set (My custom code)
+// O(n)
+// O(n)
+
+class Solution {
+    public:
+        int lengthOfLongestSubstring(string s) {
+            if(s.empty()) return 0;
+            int maxLength = 1;
+            unordered_set<char> seen;
+            int l=0, r = 0;
+            while(r < s.size()) {
+                if(seen.find(s[r]) != seen.end()) {
+                    seen.erase(s[l]);
+                    l++;
+                    continue;
+                }
+                seen.insert(s[r]);
+                maxLength = max(maxLength, r - l + 1);
+                r++;
+            }
+            return maxLength;        
+        }
+    };
+    

@@ -74,4 +74,10 @@ public:
         return found[0] && found[1] && found[2];
     }
 };
+
+// or found another method
+// discard proces same as above
+// declare ans as vector<int> ans(3, 0);
+// in second for loop ans[0] = max(ans[0], triplet[i][0]), same for other two indices
+// return (ans[0] == target[0] && ans[1] == target[1] && ans[2] == target[2])
     

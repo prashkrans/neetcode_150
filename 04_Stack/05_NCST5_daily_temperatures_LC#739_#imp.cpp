@@ -1,6 +1,6 @@
 /* LC#739. NCST5. Daily Temperatures
 
-# Daily Temperatures - Approach & Dry Run
+Prefer method 2 over method 1
 
 ## Approach:
 1. Use a monotonic decreasing stack to track indices of temperatures that haven't found a warmer day yet
@@ -12,7 +12,7 @@
 3. Return array with calculated waiting days
 */
 
-// 1a. Using a stack to store difference of indices
+// 1a. Using a stack to store difference of indices (from left to right)
 // Time Complexity: O(n) - Each element is pushed and popped at most once
 // Space Complexity: O(n) - For the stack and result array
 class Solution {
@@ -73,7 +73,7 @@ Final answer: [1, 0, 1, 0]
 */
 
 /*
-### Approach: Monotonic Decreasing Stack
+### Approach 2: Monotonic Decreasing Stack (from right to left) - Prefer this over 1
 1. Use a stack to store indices of temperatures in a monotonic decreasing order.
 2. Traverse the array from right to left:
    - For each temperature, check if it is less than the temperature at the top of the stack.

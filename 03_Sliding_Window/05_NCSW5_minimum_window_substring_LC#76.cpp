@@ -1,7 +1,11 @@
 /*LC#76. Minimum Window Substring
-*/
-/*
-Approach: Sliding Window with Two Frequency Maps
+
+Example 1: [#IMP] - Use this example to come up with the solution
+Input: s = "ADOBECODEBANC", t = "ABC"
+Output: "BANC"
+Explanation: The minimum window substring "BANC" includes 'A', 'B', and 'C' from string t.
+
+### Approach: Sliding Window with Two Frequency Maps
 
 1. We use a sliding window approach with two pointers (l and r) to find the minimum substring of s that contains all characters of t.
 2. We maintain two frequency maps: freqMap1 for string t and freqMap2 for the current window in string s.

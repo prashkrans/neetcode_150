@@ -13,7 +13,7 @@
 7. The algorithm ensures efficient computation of the maximum for each window in O(log k) time per window, resulting in O(n log k) overall complexity.
 */
 
-// 1. Using Priority Queue (Max Heap) with Index Tracking (Prefer this method) (My custom code)
+// 1. Using Priority Queue (Max Heap) with Index Tracking (My custom code)
 // Time Complexity: O(n log k)
 // - Each element is pushed into and popped from the priority queue at most once.
 // - Priority queue operations (push and pop) take O(log k), where k is the size of the sliding window.
@@ -57,7 +57,7 @@ Approach 1b: Using Priority Queue (Max Heap)
 11. One advantage of this approach is that it can be easily modified to find other window statistics like minimum or median.
 */
 
-// 1. Using Priority Queue (Max Heap)
+// 1b. Using Priority Queue (Max Heap) (Prefer this method as easier than method 1a)
 // Time Complexity: O(n log n) - where n is the size of the array and log n comes from priority queue operations
 // Space Complexity: O(n) - in worst case all elements might be in the priority queue
 
@@ -76,3 +76,22 @@ public:
         return ans;                                                     // Return the result vector
     }
 };
+
+// or, same as above but without comments and a merged loop
+
+class Solution {
+    public:
+        vector<int> maxSlidingWindow(vector<int>& nums, int k) {
+            vector<int> ans;
+            int n = nums.size();
+            priority_queue<pair<int, int>> pq;
+            for(int i=0; i<n; i++) {
+                pq.push({nums[i], i});
+                if(i >= k-1) {
+                    while(pq.top().second < i - k + 1) pq.pop();
+                    ans.push_back(pq.top().first);
+                }
+            }
+            return ans;
+        }
+    };

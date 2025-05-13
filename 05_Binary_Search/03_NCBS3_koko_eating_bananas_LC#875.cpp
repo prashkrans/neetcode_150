@@ -1,5 +1,14 @@
 /* LC# 875. Koko Eating Bananas
 
+Main logic:
+k varies from 1 to maxVal where maxVal is max value of banana piles 
+=> l = 1 and r = maxVal
+while (l <= r) 
+    Calc h for each k = (l + r) / 2
+    if calcH <= h: r = k - 1
+    else if calcH > h: l = k + 1
+return l
+
 Approach:
 Consider m to be the largest pile and n to be the number of piles. A brute force solution would be to 
 linearly check all values from 1 to m and find the minimum possible value at which Koko can complete the task. 
@@ -24,12 +33,11 @@ Space Complexity: O(log k)
 
 */
 
-// 1. Binary Search (Recursive)
+// 2a. Binary Search (Iterative) (Prefer this approach over recursive and naive)
 // O(n*log k) where n = piles.size() and k = max value in piles
-// O(log k) due to the recursion stack
+// O(1) due to a few variables
 
 typedef long long ll;
-
 class Solution {
     ll totalTime(vector<int> &piles, int k) { // Calculates total time needed to eat all piles at speed k
         ll sum = 0;
@@ -43,28 +51,122 @@ class Solution {
         return sum;
     }
 
-    // Binary search to find minimum k where total time <= h
-    int binarySearch(int l, int r, vector<int> &piles, int h, int &ans) {
-        if(l>r) return -1;                   // Base case: search space is empty
-        int k = (l + r)/2;                   // Calculate midpoint for current search space
-        ll time = totalTime(piles, k);       // Calculate time for current k value
-        if(time <= h) {                      // If current k works (time is within h hours)
-            ans = min(ans, k);               // Update answer with smallest valid k found so far
-            return binarySearch(l, k-1, piles, h, ans); // Continue searching left half for even smaller k
+    int binarySearch(int l, int r, vector<int> &piles, int h) {
+        while(l <= r) { // Note: l <= r 
+            int mid = l + (r - l) / 2;
+            if(totalTime(piles, mid) <= h) r = mid - 1; // Note: calcH <= h => r = mid - 1 (not mid) 
+            else l = mid + 1;
         }
-        return binarySearch(k+1, r, piles, h, ans); // If current k is too slow, search right half for larger k
+        return l;
     }
 public:
-    int minEatingSpeed(vector<int>& piles, int h) { // Main function to find minimum eating speed k
-        int upperBoundOfK = INT_MIN;         // Will hold the maximum pile size
-        for(int i=0; i<piles.size(); i++) upperBoundOfK = max(upperBoundOfK, piles[i]); // Find max pile size
-        int ans = INT_MAX;                   // Initialize answer to maximum possible value
-        binarySearch(1, upperBoundOfK, piles, h, ans); // Search for minimum valid k between 1 and max pile size
-        return ans;                          // Return the minimum valid eating speed
+    int minEatingSpeed(vector<int>& piles, int h) {
+        int maxVal = INT_MIN;         
+        for(int i=0; i<piles.size(); i++) maxVal = max(maxVal, piles[i]); 
+        return binarySearch(1, maxVal, piles, h); 
     }
 };
 
-// 2. Naive Solution gets TLE
+// or, same as above but l < r
+
+typedef long long ll;
+class Solution {
+    ll totalTime(vector<int> &piles, int k) { // Calculates total time needed to eat all piles at speed k
+        ll sum = 0;
+        for(int i=0; i<piles.size(); i++) {
+            int rem = piles[i] % k;
+            ll currHours = piles[i] / k; 
+            if(rem>0) currHours++;          // ceil(piles[i]/k) - take ceiling since we can't eat partial bananas
+            sum += currHours;
+        }
+        // cout<<"k: "<<k<<" totalSum: "<<sum<<endl;
+        return sum;
+    }
+
+    int binarySearch(int l, int r, vector<int> &piles, int h) {
+        while(l < r) { // Note: l <= r 
+            int mid = l + (r - l) / 2;
+            if(totalTime(piles, mid) <= h) r = mid; // Note: calcH <= h => r = mid - 1 (not mid) 
+            else l = mid + 1;
+        }
+        return l;
+    }
+public:
+    int minEatingSpeed(vector<int>& piles, int h) {
+        int maxVal = INT_MIN;         
+        for(int i=0; i<piles.size(); i++) maxVal = max(maxVal, piles[i]); 
+        return binarySearch(1, maxVal, piles, h); 
+    }
+};
+
+
+// 2b. Binary Search (Recursive)
+// O(n*log k) where n = piles.size() and k = max value in piles
+// O(log k) due to the recursion stack
+
+typedef long long ll;
+class Solution {
+    ll totalTime(vector<int> &piles, int k) { // Calculates total time needed to eat all piles at speed k
+        ll sum = 0;
+        for(int i=0; i<piles.size(); i++) {
+            int rem = piles[i] % k;
+            ll currHours = piles[i] / k; 
+            if(rem>0) currHours++;          // ceil(piles[i]/k) - take ceiling since we can't eat partial bananas
+            sum += currHours;
+        }
+        // cout<<"k: "<<k<<" totalSum: "<<sum<<endl;
+        return sum;
+    }
+
+    int binarySearch(int l, int r, vector<int> &piles, int h) {
+        while(l < r) { // Note: l <= r 
+            int mid = l + (r - l) / 2;
+            if(totalTime(piles, mid) <= h) r = mid; // Note: calcH <= h => r = mid - 1 (not mid) 
+            else l = mid + 1;
+        }
+        return l;
+    }
+public:
+    int minEatingSpeed(vector<int>& piles, int h) {
+        int maxVal = INT_MIN;         
+        for(int i=0; i<piles.size(); i++) maxVal = max(maxVal, piles[i]); 
+        return binarySearch(1, maxVal, piles, h); 
+    }
+};
+
+// or, same as above but l < r
+
+typedef long long ll;
+class Solution {
+    ll totalTime(vector<int> &piles, int k) { // Calculates total time needed to eat all piles at speed k
+        ll sum = 0;
+        for(int i=0; i<piles.size(); i++) {
+            int rem = piles[i] % k;
+            ll currHours = piles[i] / k; 
+            if(rem>0) currHours++;          // ceil(piles[i]/k) - take ceiling since we can't eat partial bananas
+            sum += currHours;
+        }
+        // cout<<"k: "<<k<<" totalSum: "<<sum<<endl;
+        return sum;
+    }
+
+    int binarySearch(int l, int r, vector<int> &piles, int h) {
+        while(l < r) { // Note: l <= r 
+            int mid = l + (r - l) / 2;
+            if(totalTime(piles, mid) <= h) r = mid; // Note: calcH <= h => r = mid - 1 (not mid) 
+            else l = mid + 1;
+        }
+        return l;
+    }
+public:
+    int minEatingSpeed(vector<int>& piles, int h) {
+        int maxVal = INT_MIN;         
+        for(int i=0; i<piles.size(); i++) maxVal = max(maxVal, piles[i]); 
+        return binarySearch(1, maxVal, piles, h); 
+    }
+};
+
+// 1. Naive Solution gets TLE
 // O(n*k)
 // O(1)
 

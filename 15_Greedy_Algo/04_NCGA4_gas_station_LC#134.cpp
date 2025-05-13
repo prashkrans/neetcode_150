@@ -5,6 +5,8 @@ Two variables:
 2. total = 2 options: if total < 0, curr station is not a starting station so make start = i + 1
                       else curr station could be a starting station so continue 
 
+Note: Break condition is less than zero [#IMP] for both tank and total gas. If they are equal to 0 its alright
+
 ### Approach: Greedy with Single Pass
 1. We use a greedy approach to find the starting station that allows completing the circular tour.
 2. The solution hinges on two key insights: 
@@ -91,3 +93,37 @@ Final check:
 Therefore, the answer is station 3 (0-indexed).
 
 */
+
+
+// TODO: Fix later (Incorrect code)
+// Fails for
+// gas=[5,8,2,8]
+// cost=[6,5,6,6]
+
+class Solution {
+public:
+    int canCompleteCircuit(vector<int>& gas, vector<int>& cost) {
+        int n = gas.size();
+        vector<int> gain(n, 0);
+        int maxGain = INT_MIN;
+        int startIndex = -1;
+        int sumGain = 0;
+        for(int i=0; i<n; i++) {
+            gain[i] = gas[i] - cost[i];
+            sumGain += gain[i];
+            cout<<gain[i]<<" ";
+        }
+        cout<<endl;
+        for(int i=0; i<n; i++) {
+            if(i>0) gain[i] = gain[i] + gain[i-1];
+            if(maxGain < gain[i]) {
+                maxGain = gain[i];
+                startIndex = i;
+            }
+            cout<<gain[i]<<" ";
+        }
+        cout<<"sumGain: "<<sumGain<<endl;
+        return (maxGain >= 0 && sumGain >= 0) ? startIndex : -1;    
+    }
+};
+

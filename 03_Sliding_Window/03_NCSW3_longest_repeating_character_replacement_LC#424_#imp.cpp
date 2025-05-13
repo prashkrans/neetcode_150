@@ -2,6 +2,8 @@
 
 Main logic: (current window size - max frequency) <= replacements allowed
 
+Note: if currSize - maxF > k we decrement map[s[l]] and increase both l and r 
+
 Approach: Sliding Window with Frequency Count
 
 1. We use two pointers, left and right, to define a sliding window over the string.
