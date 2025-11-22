@@ -58,3 +58,22 @@ When extracting from this priority queue:
 This automatic ordering handles the problem requirement:
 "If multiple rooms become available at the same time, choose the one with the lowest number"
 */
+
+### 2. Priority Queues and Comparators:
+
+**Note**: 
+- The order of cmp is reversed in a priority queue unlike ordered_map, ordered_set, or sort()
+- Proof: `priority_queue<int, vector<int>, greater<>> pq` is a min-heap (not a max-heap).
+
+
+```
+struct cmp {
+    bool operator() (pair<int, char> &a, pair<int, char> &b) const {
+        if(a.first == b.first) return a.second > b.second;  // max of char => min of char
+        else return a.first < b.first;                      // min of int => max of int
+    }
+};
+
+priority_queue<pair<int, char>, vector<pair<int, char>>, cmp> pq; // Correct
+priority_queue<pair<int, char>, cmp> pq; // Incorrect
+```

@@ -72,6 +72,7 @@ public:
 //  2. Better DFS
 //  O(n)
 //  O(n)
+//  without maxDepth precomputation
 
 class Solution {
     void traverse(TreeNode* root, int depth, vector<vector<int>> &ans) {
@@ -90,7 +91,7 @@ public:
     }
 };
 
-// or 
+// or with maxDepth precomputation
 
 class Solution {
     int maxDepth(TreeNode* root) {

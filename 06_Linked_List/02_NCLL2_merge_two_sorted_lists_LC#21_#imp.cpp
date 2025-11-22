@@ -11,7 +11,7 @@
  *     ListNode(int x, ListNode *next) : val(x), next(next) {}
  * };
  */
-// 1. Recursive
+// 1a. Recursive
 // O(n+m) time | Its not O(max(n, m))
 // O(n+m) space due to recursion
 // where n = size of list1 and m = size of list2
@@ -30,6 +30,28 @@ public:
             list2->next = mergeTwoLists(list1, list2->next); // Attach merged result to list2's head
             return list2;                       // Return list2 as the merged list head
         }
+    }
+};
+
+// 1b. Recursive (Same as above but slightly modified)
+// O(n+m) time | Its not O(max(n, m)) | 0ms beats 100%
+// O(n+m) space due to recursion
+// where n = size of list1 and m = size of list2
+class Solution {
+public:
+    ListNode* mergeTwoLists(ListNode* list1, ListNode* list2) {
+        if(list1 && list2) {
+            if(list1->val <= list2->val) {
+                list1->next = mergeTwoLists(list1->next, list2);
+                return list1;
+            }
+            else {
+                list2->next = mergeTwoLists(list1, list2->next);
+                return list2;
+            }
+        }
+        else if(list1) return list1;
+        else return list2;        
     }
 };
 

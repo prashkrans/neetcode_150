@@ -1,7 +1,7 @@
 /* LC#199. Binary Tree Right Side View
 
 2 Approaches:
-1. BFS
+1. BFS (Similar to Level Order Traversal but push only currLevelNodes[0] to ans)
 2. DFS with a vector passed as reference whose size == current depth
 
 */

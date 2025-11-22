@@ -1,4 +1,4 @@
-/* LC#146. NCLL9. LRU Cache
+/* LC#146. NCLL9. LRU (Least Recently Used) Cache
 
 We can use a doubly linked list (head and tail) where key-value pairs are stored as nodes, with the least recently used (LRU) 
 node at the head and the most recently used (MRU) node at the tail. Whenever a key is accessed using get() or put(), 
@@ -16,7 +16,7 @@ of its node, enabling efficient operations in O(1) time.
  */
 
  /**
-* LRU Cache Analysis Summary:
+* LRU Cache Analysis Summary: (Note: We use dummy head/tail nodes for simplicity and MRU near tail, LRU near head)
 * 
 * Time Complexity:
 * - Constructor: O(1)
@@ -33,7 +33,7 @@ of its node, enabling efficient operations in O(1) time.
 * - Efficient LRU tracking (recent near tail, old near head)
 */
 
-// 1. Using a doubly linked list
+// 1. Using a doubly linked list (Best approach)
 // put(): O(1) | get(): O(1)
 // O(capacity) 
 

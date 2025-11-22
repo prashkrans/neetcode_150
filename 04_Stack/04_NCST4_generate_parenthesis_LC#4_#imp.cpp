@@ -1,6 +1,6 @@
 // LC#22. NCST4. Generate Parentheses
 
-// 1a. Recusion without memoization (With open and close counters)
+// 1a. Recursion without memoization (With open and close counters)
 // Time Complexity: O(4^n / sqrt(n)) - Catalan number solution
 // Space Complexity: O(n) for recursion stack, O(4^n / sqrt(n)) total with results
 
@@ -22,7 +22,7 @@ public:
     }
 };
 
-// 1b. Recusion without memoization (With only open and 2*n counters)
+// 1b. Recursion without memoization (With only open and 2*n counters)
 // Time Complexity: O(4^n / sqrt(n)) - Catalan number solution
 // - The number of valid parentheses combinations is given by the nth Catalan number, which is approximately O(4^n / sqrt(n)).
 // - Each recursive call generates a new string, and there are O(4^n / sqrt(n)) valid combinations.
@@ -48,5 +48,5 @@ public:
     }
 };
 
-// 2. Recusion with memoization (TODO)
+// 2. Recursion with memoization (TODO)
 // 3. DP bottom up TODO
