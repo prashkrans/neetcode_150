@@ -1,7 +1,8 @@
-// LC#994. NCG4. Is Oranges Rotting
+// LC#994. NCG4. Rotting Oranges
 // Note: This question is similar to walls and gates (LC#286)
+// Note: [#IMP] This problem uses dist for each levels approach unlike LC#695. Max Area of an Island which uses dist for each nodes approach.
 
-// Method 1. First add all the rotten oranges in a queue and count the no. of fresh oranges 
+// Method 1. Multisource BFS + Dist array: First add all the rotten oranges in a queue and count the no. of fresh oranges (Prefer this approach)
 // and use BFS along with for loop for current level size to keep a track of minutes. 
 
 // So, one additional loop to count fresh oranges and push rotten oranges apart from BFS is used here
@@ -21,8 +22,7 @@ public:
         for (int i=0; i<n; i++) {
             for(int j=0; j<m; j++) {
                 if(grid[i][j] == 1) countFresh++;
-                else if(grid[i][j] == 2)
-                    q.push({i, j});
+                else if(grid[i][j] == 2) q.push({i, j});
             }
         }
 
@@ -116,5 +116,49 @@ public:
             cout<<endl;
         }
         return ans;
+    }
+};
+
+// Same as Method 1. but with comments. (Prefer this)
+// Time Complexity: O(m * n)
+// Space Complexity: O(m * n)
+
+class Solution {                                                                           
+    bool isValid(pair<int, int> &v, int &m, int &n) {                                       // Checks if cell is within grid bounds
+        int i = v.first, j = v.second;                                                      // Extract row and column indices
+        if(i >= 0 && i < m && j >= 0 && j < n) return true;                                 // Validate boundaries
+        return false;                                                                       // Out of bounds case
+    }
+public:                                                                                     
+    int orangesRotting(vector<vector<int>>& grid) {                                         // Computes minimum time to rot all oranges
+        int m = grid.size(), n = grid[0].size(), count = 0;                                 // Grid dimensions and fresh count
+        queue<pair<int, int>> q;                                                            // Queue for BFS traversal
+        for(int i = 0; i < m; i++) {                                                        // Traverse rows
+            for(int j = 0; j < n; j++) {                                                    // Traverse columns
+                if(grid[i][j] == 2) q.push({i, j});                                         // Push initially rotten oranges
+                else if(grid[i][j] == 1) count++;                                           // Count fresh oranges
+            }
+        }
+        if(count == 0) return 0;                                                            // No fresh oranges initially
+        int currLvl = 0;                                                                       // Tracks elapsed time
+        vector<vector<int>> dirs = {{0, 1}, {1, 0}, {-1, 0}, {0, -1}};                      // Direction vectors
+        while(!q.empty()) {                                                                 // Perform BFS until queue empties
+            int qSize = q.size();                                                           // Number of nodes at current level
+            for(int i = 0; i < qSize; i++) {                                                // Process one BFS layer
+                pair<int, int> u = q.front();                                               // Current rotten orange
+                q.pop();                                                                    // Remove from queue
+                for(int k = 0; k < 4; k++) {                                                // Explore four directions
+                    pair<int, int> v = {u.first + dirs[k][0], u.second + dirs[k][1]};       // Adjacent cell
+                    if(isValid(v, m, n) && grid[v.first][v.second] == 1) {                  // Valid fresh neighbor check
+                        q.push(v);                                                          // Add newly rotten orange
+                        grid[v.first][v.second] = 2;                                        // Mark as rotten
+                        count--;                                                            // Decrease fresh count
+                    }
+                }
+            }           
+            currLvl++;                                                                         // Increment time after each level
+        }
+        // Note: currLvl is time taken + 1 hence, returning currLvl - 1
+        return count == 0 ? currLvl - 1 : -1;                                                  // Return time or failure
     }
 };

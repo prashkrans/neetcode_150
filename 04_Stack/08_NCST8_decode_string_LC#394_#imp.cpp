@@ -46,11 +46,12 @@ complexity of O(n), where n is the length of the input string.
 */
 
 // 1. Using two stacks: a. numStack b. stringStack
-// Time Complexity: O(n) | 0ms beats 100%
+// Time Complexity: O(n + N) | 0ms beats 100%
 // - Each character in the string is processed once.
 // - n = length of the input string.
+// - N = length of the output string
 
-// Space Complexity: O(n)
+// Space Complexity: O(n + N)
 // - Space is used by the two stacks: numStack and stringStack.
 
 class Solution {
@@ -110,11 +111,11 @@ public:
 // 2. Using recursion with a global variable i as the index
 // This is a smaller solution but tricky to come up with.
 
-// Time Complexity: O(n)
+// Time Complexity: O(n + N)
 // - Each character in the string is processed once during the recursion.
 // - n = length of the input string.
 
-// Space Complexity: O(n)
+// Space Complexity: O(n + N)
 // - Space is used by the recursion stack, which can go up to the depth of nested brackets.
 
 class Solution {

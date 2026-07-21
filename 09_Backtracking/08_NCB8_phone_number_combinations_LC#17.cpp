@@ -49,14 +49,14 @@ public:
         return res;
     }
 
-    void backtrack(int i, string curStr, string &digits) {
-        if (curStr.size() == digits.size()) {
-            res.push_back(curStr);
+    void backtrack(int i, string currStr, string &digits) {
+        if (currStr.size() == digits.size()) {
+            res.push_back(currStr);
             return;
         }
         string chars = digitToChar[digits[i] - '0'];
         for (char c : chars) {
-            backtrack(i + 1, curStr + c, digits);
+            backtrack(i + 1, currStr + c, digits);
         }
     }
 };

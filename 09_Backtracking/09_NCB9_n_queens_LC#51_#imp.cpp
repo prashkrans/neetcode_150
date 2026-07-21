@@ -8,6 +8,12 @@ Before placing, we check whether the position is safe using a helper function is
     2. upper-left diagonal
     3. lower-left diagonal
 
+a. For all cols (0 to n) try to place a queen in each row
+b. Three cases:
+    b1. All cells to the left in the same row   |   (i, j-1)
+    b2. All cells in the upper left diagonal    |   (i-1, j-1)
+    b3. All cells in the lower left diagonal    |   (i+1, j-1)    
+
 If a valid position is found, we place the queen and move to the next column. If we reach the last column (col == n), 
 it means we've placed all n queens and found a valid configuration, which we add to our result.
 
@@ -19,23 +25,26 @@ We backtrack by removing the queen and trying the next possible row in the curre
 // It is a perfect solution and an example of backtracking
 // Running time: O(n!) | E.g. n = 4. At j = 0 we have 4 rows as option * at j = 1 we have 3 rows as an option * 2 * 1 = 4!
 // Auxiliary space: O(n^2) due to the board which is vector of strings
+// Note: We don't have to check up or down in the same column as we are placing a new queen each column from j = 0 to n - 1
+// Time complexity:	O(n!) (pruning reduces time but worst case is still O(n!))
+// Auxiliary space:	O(n)
 
 class Solution {
     bool isSafe(int i, int j, int n, vector<string> &board) {
         // check left cells in the same row, top left diag and bottom left diag
         int r = i, c = j;
-        while(j>=0) {                                   // Check left (row)
+        while(j>=0) {                                   // Case 1: Check left (row)
             if(board[i][j] == 'Q') return false;
             j--;
         }
         j = c;
-        while(i>=0 && j>=0) {                           // Check upper-left diagonal
+        while(i>=0 && j>=0) {                           // Case 2: Check upper-left diagonal
             if(board[i][j] == 'Q') return false;
             i--;    
             j--;
         }
         i = r;  j = c;
-        while(i<n && j>=0) {                            // Check lower-left diagonal
+        while(i<n && j>=0) {                            // Case 3: Check lower-left diagonal
             if(board[i][j] == 'Q') return false;
             i++;    
             j--;
@@ -48,7 +57,7 @@ class Solution {
             ans.push_back(board);
             return;
         }
-        for(int i=0; i<n; i++) {                         // Try each row in current column
+        for(int i=0; i<n; i++) {                         // Try each row in current column [#IMP]
             if(isSafe(i, j, n, board)) {                 // Check if position is safe
                 board[i][j] = 'Q';                       // Place queen
                 backtrack(j+1, n, board, ans);           // Recur for next column
@@ -84,7 +93,7 @@ class Solution {
             int vj = j + dir[1];
             dfs(vi, vj, n, board, visited);
         }
-…        for(auto i: res) cout<<i.first<<" "<<i.second<<endl;
+        for(auto i: res) cout<<i.first<<" "<<i.second<<endl;
         return ans;
     }
 };

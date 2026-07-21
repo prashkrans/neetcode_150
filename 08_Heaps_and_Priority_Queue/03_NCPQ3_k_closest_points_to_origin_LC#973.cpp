@@ -10,6 +10,7 @@ public:
     vector<vector<int>> kClosest(vector<vector<int>>& points, int k) {
         vector<vector<int>> ans;
         priority_queue<pair<int, int>, vector<pair<int, int>>, greater<pair<int, int>>> pq;
+        // or, priority_queue<pair<int, int>, vector<pair<int, int>>, greater<>> pq;
         for(int i=0; i<points.size(); i++) {
             int distSquared = pow(points[i][0], 2) + pow(points[i][1], 2);
             pq.push({distSquared, i});

@@ -1,9 +1,8 @@
-
 /* LC# 47. NCB4b. Permutations II
 
 Creating a new vector is expensive, so we should avoid it, but it becomes easier to understand.
 
-A. without creating a new vector (prefer this approach)
+A. without creating a new vector by swapping the current value with the first value (prefer this approach)
 B. with creating a new vector
 
 
@@ -55,10 +54,10 @@ class Solution {
             ans.push_back(path);
             return;
         }
-        unordered_set<int> st;
+        unordered_set<int> seen;
         for(int i=0; i<nums.size(); i++) {     
-            if(st.find(nums[i]) != st.end()) continue;
-            st.insert(nums[i]);
+            if(seen.find(nums[i]) != seen.end()) continue;
+            seen.insert(nums[i]);
             vector<int> newNums(nums);          // or,  vector<int> newNums;                
             newNums.erase(newNums.begin() + i); // for(int j=0; j<nums.size(); j++) if(j!=i) newNums.push_back(nums[j]);
             path.push_back(nums[i]);

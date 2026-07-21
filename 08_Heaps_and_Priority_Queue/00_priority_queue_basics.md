@@ -4,6 +4,8 @@
 
 When we define a priority queue (min-heap) with pairs:  
 `priority_queue<pair<ll, int>, vector<pair<ll, int>>, greater<pair<ll, int>>> pq;`
+or
+`priority_queue<pair<ll, int>, vector<pair<ll, int>>, greater<>> pq;`
 
 The ordering works like this:
 1. Primary ordering: The first element of the pair (in our case, the meeting end time)
@@ -76,4 +78,15 @@ struct cmp {
 
 priority_queue<pair<int, char>, vector<pair<int, char>>, cmp> pq; // Correct
 priority_queue<pair<int, char>, cmp> pq; // Incorrect
+```
+
+or,
+```
+class cmp {
+public: // [#IMP] to use public acccess identifier here
+    bool operator() (pair<int, char> &a, pair<int, char> &b) const {
+        if(a.first == b.first) return a.second > b.second;  // max of char => min of char
+        else return a.first < b.first;                      // min of int => max of int
+    }
+};
 ```

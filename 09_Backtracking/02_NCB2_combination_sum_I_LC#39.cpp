@@ -22,7 +22,7 @@ class Solution {
         if(target < 0 || i == nums.size()) return;  // base case 2
         rec(i+1, nums, target, path);               // skip and increment i
         path.push_back(nums[i]);                    // part of take
-        rec(i, nums, target-nums[i], path);         // take but not increment i
+        rec(i, nums, target-nums[i], path);         // take but not increment i [#IMP]
         path.pop_back();                            // backtrack
     }
 public:

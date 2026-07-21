@@ -9,7 +9,7 @@ Approach 1: Trie
 2. For each of the remaining strings, traverse the Trie and find the longest common prefix.
 3. Return the longest common prefix found.
 4. If no common prefix is found, return an empty string.
-
+*/
 
 // Method 1: Using a prefix tree (Trie)
 // Running time: O(S), where S is the sum of all characters in all strings

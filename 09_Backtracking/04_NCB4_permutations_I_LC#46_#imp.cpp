@@ -2,7 +2,7 @@
 
 Creating a new vector is expensive, so we should avoid it, but it becomes easier to understand.
 
-A. without creating a new vector (prefer this approach)
+A. without creating a new vector by swapping the current value with the first value (prefer this approach)
 B. with creating a new vector
 
 
@@ -116,3 +116,34 @@ public:
         return ans;
     }
 };
+
+// Same as void type recursion with creating a new array but longer
+// B1b. Void type recursion but uses a temp array instead of newNums.erase(newNums.begin() + i);
+// Time Complexity: O(n * n!) | 0ms, beats 100%
+// Space Complexity: O(n)
+
+class Solution {                                                                          
+    void rec(vector<int> &arr, vector<int> &curr, vector<vector<int>> &ans) {                // Recursive helper generating permutations
+        if(arr.empty()) {                                                                   // Base case: no remaining elements
+            ans.push_back(curr);                                                            // Store one complete permutation
+            return;                                                                         // Return to explore other possibilities
+        }
+        for(int i = 0; i < arr.size(); i++) {                                               // Iterate through remaining elements
+            vector<int> temp;                                                               // Temporary array excluding chosen element
+            for(int j = 0; j < arr.size(); j++) {                                           // Build remaining elements array
+                if(j != i) temp.push_back(arr[j]);                                          // Skip current index element
+            }
+            curr.push_back(arr[i]);                                                         // Choose current element
+            rec(temp, curr, ans);                                                           // Recurse with reduced problem
+            curr.pop_back();                                                                // Backtrack to previous state
+        }
+    }
+public:                                                                                    // Public access specifier
+    vector<vector<int>> permute(vector<int>& nums) {                                      // Generates all permutations
+        vector<vector<int>> ans;                                                          // Stores all permutations
+        vector<int> curr;                                                                 // Stores current permutation
+        rec(nums, curr, ans);                                                             // Start recursive permutation generation
+        return ans;                                                                       // Return all generated permutations
+    }
+};
+
